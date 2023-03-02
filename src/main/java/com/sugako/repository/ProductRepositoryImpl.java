@@ -17,7 +17,6 @@ import static com.sugako.repository.columns.ProductColumns.CHANGED;
 import static com.sugako.repository.columns.ProductColumns.CREATED;
 import static com.sugako.repository.columns.ProductColumns.DESCRIPTION;
 import static com.sugako.repository.columns.ProductColumns.ID;
-import static com.sugako.repository.columns.ProductColumns.IS_DELETED;
 import static com.sugako.repository.columns.ProductColumns.SKU;
 
 @Repository
@@ -34,7 +33,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List findAll() {
 
-        final String findAllQuery = "select * from product order by id desc";
+        final String findAllQuery = "select * from product order by id";
 
         List<Product> result = new ArrayList<>();
 
@@ -87,7 +86,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setDescription(rs.getString(DESCRIPTION));
             product.setCreated(rs.getTimestamp(CREATED));
             product.setChanged(rs.getTimestamp(CHANGED));
-            product.setIsDeleted(rs.getBoolean(IS_DELETED));
+          //  product.setIsDeleted(rs.getBoolean(IS_DELETED));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
