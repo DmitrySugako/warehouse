@@ -1,4 +1,4 @@
-package com.war;
+package com.sugako;
 
 public class Main {
 }
