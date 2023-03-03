@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         List<Product> result = new ArrayList<>();
 
         registerDriver();
-        try (Connection connection=getConnection();
+        try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(findAllQuery)
         ) {
@@ -73,8 +74,28 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Object findOne(Object id) {
-        return null;
+        int x = (int) id;
+
+        final String findOneQuery = "select * from product where id= ?";
+
+        registerDriver();
+        Connection connection = getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(findOneQuery);
+            preparedStatement.setInt(1, x);
+            ResultSet rs = preparedStatement.executeQuery();
+            {
+                while (rs.next()) {
+                    return parseResultSet(rs);
+
+                }
+                return parseResultSet(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     private Product parseResultSet(ResultSet rs) {
         Product product;
@@ -86,7 +107,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setDescription(rs.getString(DESCRIPTION));
             product.setCreated(rs.getTimestamp(CREATED));
             product.setChanged(rs.getTimestamp(CHANGED));
-          //  product.setIsDeleted(rs.getBoolean(IS_DELETED));
+            //  product.setIsDeleted(rs.getBoolean(IS_DELETED));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

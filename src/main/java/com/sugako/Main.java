@@ -9,7 +9,8 @@ public class Main {
 
         ProductRepository productRepository = applicationContext.getBean("productRepositoryImpl", ProductRepository.class);
 
-        System.out.println(productRepository.findAll());
+        System.out.println(productRepository.findOne(2));
+        //System.out.println(productRepository.findAll());
 
         }
 
