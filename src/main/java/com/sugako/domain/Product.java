@@ -22,6 +22,13 @@ public class Product {
     private Timestamp changed;
     private Boolean isDeleted;
 
+    public Product(String sku, String description){
+        this.sku=sku;
+        this.description=description;
+
+
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

@@ -1,5 +1,6 @@
 package com.sugako;
 
+import com.sugako.domain.Product;
 import com.sugako.repository.ProductRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -9,9 +10,15 @@ public class Main {
 
         ProductRepository productRepository = applicationContext.getBean("productRepositoryImpl", ProductRepository.class);
 
-        System.out.println(productRepository.findOne(2));
+   //     System.out.println(productRepository.findOne(8));
         //System.out.println(productRepository.findAll());
-
+      //  Product product=new Product("Dima","Sugako");
+       // productRepository.create(product);
+     //   product.setSku("Dmitry");
+      //  product.setId(26L);
+     //   product.setDescription("Ivanov");
+      //  productRepository.update(product);
+        productRepository.delete(26L);
         }
 
     }

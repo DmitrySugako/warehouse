@@ -6,5 +6,5 @@ public interface ProductColumns {
     String DESCRIPTION = "description";
     String CREATED = "created";
     String CHANGED = "changed";
-    String IS_DELETED = "isDeleted";
+    String DELETED = "isDeleted";
 }
