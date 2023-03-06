@@ -72,14 +72,16 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         registerDriver();
 
-        try (
-                Connection connection = getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(findOneQuery);
-                preparedStatement.setLong(1, searchId);
-                ResultSet rs = preparedStatement.executeQuery()) {
-            while (rs.next()) {
-                return parseResultSet(rs);
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(findOneQuery);
+            preparedStatement.setLong(1, searchId);
+            ResultSet rs = preparedStatement.executeQuery();
+            {
+                while (rs.next()) {
+                    parseResultSet(rs);
 
+                }
             }
             return parseResultSet(rs);
 
@@ -89,7 +91,6 @@ public class ProductRepositoryImpl implements ProductRepository {
             throw new RuntimeException("SQL Issues!");
         }
     }
-
 
     private Product parseResultSet(ResultSet rs) {
         Product product;
@@ -109,19 +110,30 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void create(Object object) {
-        Product pr = (Product) object;
+    public Object create(Object object) {
+
+        Product product = (Product) object;
+
+        registerDriver();
 
         final String createQuery = "insert into product (sku, description, created, changed) values (?,?,?,?)";
+
         try {
             Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(createQuery);
-            preparedStatement.setString(1, pr.getSku());
-            preparedStatement.setString(2, pr.getDescription());
+            PreparedStatement preparedStatement = connection.prepareStatement(createQuery, new String[]{"id", "created", "changed"});
+            preparedStatement.setString(1, product.getSku());
+            preparedStatement.setString(2, product.getDescription());
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             preparedStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                product.setId(rs.getLong("id"));
+                product.setCreated(rs.getTimestamp("created"));
+                product.setChanged(rs.getTimestamp("changed"));
+            }
+            return product;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -130,19 +142,27 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Object update(Object object) {
-        Product pr = (Product) object;
+
+        Product product = (Product) object;
+
         final String updateQuery = "update product set sku=?, description=?, changed=? where id=?";
 
+        registerDriver();
         try {
             Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setString(1, pr.getSku());
-            preparedStatement.setString(2, pr.getDescription());
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery, new String[] {"changed"});
+            preparedStatement.setString(1, product.getSku());
+            preparedStatement.setString(2, product.getDescription());
             preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            preparedStatement.setLong(4, pr.getId());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.setLong(4, product.getId());
+            preparedStatement.executeUpdate();
 
-            return null;
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                product.setChanged(rs.getTimestamp("changed"));
+            }
+
+            return product;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -156,6 +176,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         final String updateQuery = "update product set is_deleted=true where id=?";
 
+        registerDriver();
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
@@ -168,8 +189,14 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
     }
 
+
     @Override
-    public void searchProduct() {
+    public List<Object> searchForModifiedProducts() {
+        return null;
+    }
+
+    @Override
+    public void secondNewMethod() {
 
     }
 }

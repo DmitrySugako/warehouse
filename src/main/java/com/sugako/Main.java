@@ -12,13 +12,13 @@ public class Main {
 
    //     System.out.println(productRepository.findOne(8));
         //System.out.println(productRepository.findAll());
-      //  Product product=new Product("Dima","Sugako");
-       // productRepository.create(product);
+        Product product=new Product("Misha","Sugako");
+        productRepository.create(product);
      //   product.setSku("Dmitry");
       //  product.setId(26L);
      //   product.setDescription("Ivanov");
       //  productRepository.update(product);
-        productRepository.delete(26L);
+       // productRepository.delete(26L);
         }
 
     }

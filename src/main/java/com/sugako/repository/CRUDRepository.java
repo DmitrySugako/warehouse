@@ -8,7 +8,7 @@ public interface CRUDRepository<K, T> {
 
     List<T> findAll();
 
-    void create(T object);
+    Object create(T object);
 
     T update(T object);
 
