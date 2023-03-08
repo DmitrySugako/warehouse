@@ -1,10 +1,12 @@
 package com.sugako.repository;
 
+import com.sugako.domain.Product;
+
 import java.util.List;
 
-public interface ProductRepository extends CRUDRepository {
+public interface ProductRepository extends CRUDRepository<Long, Product> {
 
-    List<Object> searchForModifiedProducts();
+    void firstNewMethod();
 
     void secondNewMethod();
 }

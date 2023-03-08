@@ -1,7 +1,11 @@
 package com.sugako.domain;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -22,9 +26,9 @@ public class Product {
     private Timestamp changed;
     private Boolean isDeleted;
 
-    public Product(String sku, String description){
-        this.sku=sku;
-        this.description=description;
+    public Product(String sku, String description) {
+        this.sku = sku;
+        this.description = description;
 
 
     }

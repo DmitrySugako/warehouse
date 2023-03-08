@@ -1,37 +1,38 @@
 package com.sugako.repository;
 
+import com.sugako.domain.Product;
+
 import java.util.List;
 
-public class EmptyImpl implements ProductRepository{
+public class EmptyImpl implements ProductRepository {
+
     @Override
-    public Object findOne(Object id) {
+    public Product findOne(Long id) {
         return null;
     }
 
     @Override
-    public List findAll() {
+    public List<Product> findAll() {
         return null;
     }
 
     @Override
-    public Object create(Object object) {
+    public Product create(Product object) {
         return null;
     }
 
     @Override
-    public Object update(Object object) {
+    public Product update(Product object) {
         return null;
     }
 
     @Override
-    public void delete(Object id) {
-
+    public Product delete(Long id) {
+        return null;
     }
 
     @Override
-    public List<Object> searchForModifiedProducts() {
-
-        return null;
+    public void firstNewMethod() {
     }
 
     @Override

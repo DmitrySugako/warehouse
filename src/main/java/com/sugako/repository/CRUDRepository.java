@@ -8,9 +8,9 @@ public interface CRUDRepository<K, T> {
 
     List<T> findAll();
 
-    Object create(T object);
+    T create(T object);
 
     T update(T object);
 
-    void delete(K id);
+    T delete(K id);
 }
