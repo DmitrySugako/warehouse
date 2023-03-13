@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductRepository extends CRUDRepository<Long, Product> {
 
-    void firstNewMethod();
+    void checkingAndHardDelete();
 
     void secondNewMethod();
 }

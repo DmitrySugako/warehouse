@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.sugako.repository.columns.ProductColumns.*;
@@ -98,6 +101,11 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setId(rs.getLong(ID));
             product.setSku(rs.getString(SKU));
             product.setDescription(rs.getString(DESCRIPTION));
+            product.setSrp1(rs.getString(SRP1));
+            product.setSrp2(rs.getString(SRP2));
+            product.setSrp3(rs.getString(SRP3));
+            product.setBarcode(rs.getLong(BARCODE));
+            product.setWeight(rs.getDouble(WEIGHT));
             product.setCreated(rs.getTimestamp(CREATED));
             product.setChanged(rs.getTimestamp(CHANGED));
             product.setIsDeleted(rs.getBoolean(IS_DELETED));
@@ -110,7 +118,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Product create(Product object) {
 
-        final String createQuery = "insert into product (sku, description, created, changed) values (?,?,?,?)";
+        final String createQuery = "insert into product (sku, description, srp1, srp2, srp3, barcode, weight," +
+                "created, changed) values (?,?,?,?,?,?,?,?,?)";
 
         registerDriver();
 
@@ -119,8 +128,13 @@ public class ProductRepositoryImpl implements ProductRepository {
                 PreparedStatement preparedStatement = connection.prepareStatement(createQuery, new String[]{"id", "created", "changed"})) {
             preparedStatement.setString(1, object.getSku());
             preparedStatement.setString(2, object.getDescription());
-            preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            preparedStatement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setString(3, object.getSrp1());
+            preparedStatement.setString(4, object.getSrp2());
+            preparedStatement.setString(5, object.getSrp3());
+            preparedStatement.setLong(6, object.getBarcode());
+            preparedStatement.setDouble(7, object.getWeight());
+            preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setTimestamp(9, new Timestamp(System.currentTimeMillis()));
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -139,7 +153,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Product update(Product object) {
 
-        final String updateQuery = "update product set sku=?, description=?, changed=? where id=?";
+        final String updateQuery = "update product set sku=?, description=?, srp1=?, srp2=?, srp3=?, barcode=?," +
+                " weight=?, changed=? where id=?";
 
         registerDriver();
 
@@ -148,8 +163,13 @@ public class ProductRepositoryImpl implements ProductRepository {
                 PreparedStatement preparedStatement = connection.prepareStatement(updateQuery, new String[]{"changed"})) {
             preparedStatement.setString(1, object.getSku());
             preparedStatement.setString(2, object.getDescription());
-            preparedStatement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-            preparedStatement.setLong(4, object.getId());
+            preparedStatement.setString(3, object.getSrp1());
+            preparedStatement.setString(4, object.getSrp2());
+            preparedStatement.setString(5, object.getSrp3());
+            preparedStatement.setLong(6, object.getBarcode());
+            preparedStatement.setDouble(7, object.getWeight());
+            preparedStatement.setTimestamp(8, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setLong(9, object.getId());
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -186,7 +206,56 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public void firstNewMethod() {
+    public void checkingAndHardDelete() {
+
+        final String checkingQuery = "select * from product where is_deleted=true order by id";
+        final int numberOfDaysOfStorage = 10;
+
+        List<Product> result = new ArrayList<>();
+        LocalDate date = LocalDate.now();
+
+        registerDriver();
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(checkingQuery)) {
+
+            while (rs.next()) {
+                if (ChronoUnit.DAYS.between(parseResultSet(rs).getChanged().toLocalDateTime().toLocalDate(), date) > numberOfDaysOfStorage) {
+                    result.add(parseResultSet(rs));
+                }
+            }
+            if (result.isEmpty()) {
+                System.out.println("records older than " + numberOfDaysOfStorage + " days not found");
+            } else {
+                hardDelete(result);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("SQL Issues!");
+        }
+    }
+
+    private void hardDelete(List<Product> result) {
+
+        final String deleteQuery = "delete from product where id in(?)";
+
+        registerDriver();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+
+            for (Product pr : result) {
+                preparedStatement.setLong(1, pr.getId());
+                System.out.println("entry with id=" + pr.getId() + " deleted");
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException("SQL Issues!");
+        }
+
     }
 
     @Override

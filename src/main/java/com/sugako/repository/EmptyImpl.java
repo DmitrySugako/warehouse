@@ -32,7 +32,7 @@ public class EmptyImpl implements ProductRepository {
     }
 
     @Override
-    public void firstNewMethod() {
+    public void checkingAndHardDelete() {
     }
 
     @Override

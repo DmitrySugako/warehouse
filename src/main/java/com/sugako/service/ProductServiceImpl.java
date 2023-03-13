@@ -3,7 +3,6 @@ package com.sugako.service;
 import com.sugako.domain.Product;
 import com.sugako.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +37,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product delete(Long id) {
         return productRepository.delete(id);
+    }
 
+    @Override
+    public void checkingAndHardDelete() {
+        productRepository.checkingAndHardDelete();
     }
 }
