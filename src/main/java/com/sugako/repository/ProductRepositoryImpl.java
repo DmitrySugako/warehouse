@@ -17,7 +17,7 @@ import java.util.List;
 import static com.sugako.repository.columns.ProductColumns.*;
 
 @Repository
-@Primary
+
 @RequiredArgsConstructor
 
 public class ProductRepositoryImpl implements ProductRepository {
