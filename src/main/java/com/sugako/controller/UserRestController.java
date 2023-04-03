@@ -44,6 +44,12 @@ public class UserRestController {
         return new ResponseEntity<>(name, HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/{amountOfDays}")
+    public ResponseEntity<Object> hardDelete(@PathVariable int amountOfDays) {
+        userService.checkingAndHardDelete(amountOfDays);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(value = "delete/{id}")
     public ResponseEntity<Object> getDeleteUser(@PathVariable Long id) {
         User user = userService.delete(id);

@@ -24,8 +24,8 @@ public class ApplicationConfig {
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate (DataSource dataSource) {return new NamedParameterJdbcTemplate(dataSource);}
 
-  //  @Bean
-  //  public SimpleJdbcCall jdbcCall (DataSource dataSource){return  new SimpleJdbcCall(dataSource);}
+    @Bean
+    public SimpleJdbcCall jdbcCall (DataSource dataSource){return  new SimpleJdbcCall(dataSource);}
 
     @Bean
     public DataSource hikariDatasource(DatabaseProperties properties){

@@ -16,7 +16,7 @@ public interface UserService {
 
     User delete(Long id);
 
-    void checkingAndHardDelete();
+    void checkingAndHardDelete(int amountOfDays);
 
     String findByLogin(String login);
 }

@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private SimpleJdbcCall jdbcCall;
+    private final SimpleJdbcCall jdbcCall;
 
     private final UserRowMapper userRowMapper;
 
@@ -106,14 +106,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void checkingAndHardDelete() {
+    public void checkingAndHardDelete(int amountOfDays) {
+
+        jdbcTemplate.update("call hard_delete(?)", amountOfDays);
 
     }
 
     @Override
     public String findByLogin(String login) {
 
-        jdbcCall = new SimpleJdbcCall(jdbcTemplate).withFunctionName("search_by_login");
+        jdbcCall.withFunctionName("search_by_login");
+
         SqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("l", login);
 

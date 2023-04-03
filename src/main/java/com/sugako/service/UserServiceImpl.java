@@ -39,9 +39,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void checkingAndHardDelete() {
-        userRepository.checkingAndHardDelete();
-
+    public void checkingAndHardDelete(int amountOfDays) {
+        userRepository.checkingAndHardDelete(amountOfDays);
     }
 
     @Override

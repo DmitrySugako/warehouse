@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserRepository extends CRUDRepository<Long, User> {
 
-    void checkingAndHardDelete();
+    void checkingAndHardDelete(int amountOfDays);
 
     String findByLogin(String login);
 }

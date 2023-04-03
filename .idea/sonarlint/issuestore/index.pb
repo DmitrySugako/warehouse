@@ -13,3 +13,17 @@ g
 7src/main/java/com/sugako/repository/CRUDRepository.java,2\1\210c464404dcc4d25c15c21c7ba48bf0e7d6e447
 j
 :src/main/java/com/sugako/repository/ProductRepository.java,c\5\c5761a85877dabdf5c2f9b4a2039eea33b24f70d
+I
+src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
+_
+/src/main/webapp/WEB-INF/MainServlet-servlet.xml,4\5\45a36419081dae7380ddfff042b7af67fbeb0016
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+Y
+)src/main/java/com/sugako/domain/User.java,8\b\8bd158e6a2759111b515ea1582db824ea6ddcc64
+l
+<src/main/java/com/sugako/repository/columns/UserColumns.java,7\a\7a4f58907de9124d846faf9867b06dd4d4f8892b
+s
+Csrc/main/java/com/sugako/controller/requests/UserCreateRequest.java,d\d\dde0b5adfe637b9e61a4e05f4b9a3ba257d49346
+O
+src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
