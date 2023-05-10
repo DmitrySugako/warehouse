@@ -1,4 +1,4 @@
-create table product
+create table if not exists product
 (
     id          bigserial
         constraint product_pk
@@ -30,19 +30,19 @@ create index product_sku_index
 create unique index product_barcode_id_uindex
     on product (barcode);
 
-create table product_analytics
+create table if not exists product_analytics
 (
-    id                bigint  default nextval('"product analytics_id_seq"'::regclass) not null
+    id                bigint                not null
         constraint "product analytics_pk"
             primary key,
-    batch_number      bigint                                                          not null,
-    country_of_import varchar                                                         not null,
-    product_id        bigint                                                          not null
+    batch_number      bigint                not null,
+    country_of_import varchar               not null,
+    product_id        bigint                not null
         constraint "product analytics_product_id_fk"
             references product,
-    created           timestamp(6)                                                    not null,
-    changed           timestamp(6)                                                    not null,
-    is_deleted        boolean default false                                           not null
+    created           timestamp(6)          not null,
+    changed           timestamp(6)          not null,
+    is_deleted        boolean default false not null
 );
 
 alter table product_analytics
@@ -57,7 +57,7 @@ create index "product analytics_batch_number_index"
 create index "product analytics_country_of_import_index"
     on product_analytics (country_of_import);
 
-create table barcode
+create table if not exists barcode
 (
     id         bigint                not null
         constraint barcode_pk
@@ -86,7 +86,7 @@ create index barcode_barcode_index_2
 create unique index barcode_product_id_uindex
     on barcode (product_id);
 
-create table с_encoding_format
+create table if not exists с_encoding_format
 (
     id              bigserial
         constraint с_encoding_format_pk
@@ -104,7 +104,7 @@ alter table с_encoding_format
 create unique index с_encoding_format_id_uindex
     on с_encoding_format (id);
 
-create table receipt_order
+create table if not exists receipt_order
 (
     id             bigserial
         constraint receipt_order_pk
@@ -138,7 +138,7 @@ create unique index receipt_order_order_number_uindex
 create index receipt_order_receipt_status_index
     on receipt_order (receipt_status);
 
-create table c_standard_receiving_products
+create table if not exists c_standard_receiving_products
 (
     id         bigserial
         constraint c_standard_receiving_products_pk
@@ -161,7 +161,7 @@ alter table c_standard_receiving_products
 create unique index c_standard_receiving_products_id_uindex
     on c_standard_receiving_products (id);
 
-create table storage_address
+create table if not exists storage_address
 (
     id                bigserial
         constraint storage_address_pk
@@ -185,7 +185,7 @@ create unique index storage_address_id_uindex
 create index storage_address_storage_cell_type_index
     on storage_address (storage_cell_type);
 
-create table stock_status
+create table if not exists stock_status
 (
     id                 bigint                not null
         constraint stock_status_pk
@@ -207,7 +207,7 @@ alter table stock_status
 create index stock_status_availability_index
     on stock_status (availability);
 
-create table shipment
+create table if not exists shipment
 (
     id              bigserial
         constraint shipment_pk
@@ -238,7 +238,7 @@ create index shipment_shipment_status_index
 create index shipment_shipping_date_index
     on shipment (shipping_date);
 
-create table users
+create table if not exists users
 (
     id         bigserial
         constraint users_pk
@@ -268,7 +268,7 @@ create unique index users_password_uindex
 create index users_surname_index
     on users (surname);
 
-create table access_rights
+create table if not exists access_rights
 (
     id       bigserial
         constraint access_rights_pk
