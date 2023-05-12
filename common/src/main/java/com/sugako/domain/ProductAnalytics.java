@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,31 +29,34 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(exclude ={"product"})
+@ToString(exclude = {"product"})
 @Table(name = "product_analytics")
 public class ProductAnalytics {
 
     @Id
-   private Long id;
+    private Long id;
 
-   @Column(name = "batch_number")
-   private Long batchNumber;
+    @Column(name = "batch_number")
+    private Long batchNumber;
 
-   @Column(name = "country_of_import")
-   private String countryOfImport;
+    @Column(name = "country_of_import")
+    private String countryOfImport;
 
-   @Column
-   private Timestamp created;
+    @Column
+    private Timestamp created;
 
-   @Column
-   private Timestamp changed;
+    @Column
+    private Timestamp changed;
 
-   @Column(name = "is_deleted")
-   private Boolean isDeleted;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
-   @ManyToMany
-   @JoinTable(name = "product",
-           joinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany
+    @JoinTable(name = "l_product_analytics",
+            joinColumns = @JoinColumn(name = "analytics_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
 
-   @JsonIgnoreProperties("product_analytics")
-   private Set<Product> product= Collections.emptySet();
+    @JsonIgnoreProperties("analytics")
+    private Set<Product> product = Collections.emptySet();
 }
