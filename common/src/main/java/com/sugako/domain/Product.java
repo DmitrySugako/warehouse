@@ -3,9 +3,11 @@ package com.sugako.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,6 +31,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(exclude = {"analytics", "receipt_order"})
+@ToString(exclude = {"analytics", "receipt_order"})
 @Table(name = "product")
 public class Product {
 
@@ -68,4 +74,10 @@ public class Product {
     @ManyToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("product")
     private Set<ProductAnalytics> analytics = Collections.emptySet();
+
+
+
+    @ManyToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("product")
+    private Set<ReceiptOrder> receipts = Collections.emptySet();
 }

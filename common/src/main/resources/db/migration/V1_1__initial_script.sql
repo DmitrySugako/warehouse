@@ -37,7 +37,7 @@ create table if not exists analytics
     constraint "product analytics_pk"
     primary key,
     batch_number      bigint                not null,
-    country_of_import varchar(30)               not null,
+    country_of_import varchar(100)               not null,
 
 
     created           timestamp(6)          not null,
@@ -154,7 +154,7 @@ create table if not exists storage_address
     constraint storage_address_pk
     primary key,
     storage_cell_type varchar               not null,
-    cell_address      varchar(20)                not null,
+    cell_address      varchar(100)                not null,
     created           timestamp(6)          not null,
     changed           timestamp(6)          not null
 

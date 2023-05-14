@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Setter
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class UserCreateRequest {
+public class ProductUpdateRequest extends ProductCreateRequest {
 
-    private String name;
-    private String surname;
-    private String login;
-    private String password;
-    private Long rolesId;
+    private Long id;
+
 }

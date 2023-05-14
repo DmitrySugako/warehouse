@@ -21,7 +21,7 @@ INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, c
 VALUES (1, 1, 2, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
 
 INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, changed)
-VALUES (1, 2, 1, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
+VALUES (2, 2, 1, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
 
 INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, changed)
-VALUES (1, 1, 2, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
+VALUES (3, 1, 2, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
