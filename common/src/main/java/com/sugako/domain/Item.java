@@ -1,9 +1,7 @@
 package com.sugako.domain;
 
-
-;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,18 +34,28 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(exclude = {"stock"})
 @ToString(exclude = {"stock"})
-@Table(name = "receipt_order")
-public class ReceiptOrder {
+@Table(name = "item")
+public class Item {
 
     @Id
     @GeneratedValue(generator = "item_id_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "receipt_number")
+    @Column(name = "sku_code")
     @NotNull
     @Size(min = 3, max = 100)
-    private String receiptNumber;
+    private String skuCode;
+
+    @Column
+    @NotNull
+    @Size(min = 4, max = 250)
+    private String description;
+
+    @Column
+    @NotNull
+    @Size(min = 3, max = 100)
+    private String category;
 
     @Column
     @JsonIgnore
@@ -65,9 +73,8 @@ public class ReceiptOrder {
     private Boolean isDeleted;
 
 
-    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<StockStatus> stock = Collections.emptySet();
-
 
 }

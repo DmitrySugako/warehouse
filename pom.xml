@@ -36,6 +36,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <!-- Spring Boot Starters-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,11 +62,7 @@
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
-   <!--     <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
--->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -92,12 +93,6 @@
             <version>${commons.io.version}</version>
         </dependency>
 
-        <!--        Web app dependencies-->
-<!--        <dependency>-->
-<!--            <groupId>javax.servlet</groupId>-->
-<!--            <artifactId>javax.servlet-api</artifactId>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
@@ -122,10 +117,7 @@
             <version>1</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+
 
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -161,12 +153,6 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>javax.xml.bind</groupId>-->
-<!--            <artifactId>jaxb-api</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -185,10 +171,6 @@
             <artifactId>jaxb-runtime</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-core</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

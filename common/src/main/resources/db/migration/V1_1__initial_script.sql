@@ -1,18 +1,43 @@
 create table if not exists product
 (
-    id          bigserial
-    constraint product_pk
-    primary key,
-    sku         varchar(100)               not null,
-    description varchar(250)               not null,
-    srp1        varchar(100)               not null,
-    srp2        varchar(100)               not null,
-    srp3        varchar(100)               not null,
-    barcode     bigint               not null,
-    weight      double precision,
-    created     timestamp(6) not null,
-    changed     timestamp(6) not null,
-    is_deleted  boolean default false not null
+    id
+    bigserial
+    constraint
+    product_pk
+    primary
+    key,
+    sku
+    varchar
+(
+    100
+) not null,
+    description varchar
+(
+    250
+) not null,
+    srp1 varchar
+(
+    100
+) not null,
+    srp2 varchar
+(
+    100
+) not null,
+    srp3 varchar
+(
+    100
+) not null,
+    barcode bigint not null,
+    weight double precision,
+    created timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null,
+    is_deleted boolean default false not null
 
     );
 
@@ -33,16 +58,34 @@ create unique index product_barcode_id_uindex
 
 create table if not exists analytics
 (
-    id                bigint                not null
-    constraint "product analytics_pk"
-    primary key,
-    batch_number      bigint                not null,
-    country_of_import varchar(100)               not null,
+    id
+    bigint
+    not
+    null
+    constraint
+    "product analytics_pk"
+    primary
+    key,
+    batch_number
+    bigint
+    not
+    null,
+    country_of_import
+    varchar
+(
+    100
+) not null,
 
 
-    created           timestamp(6)          not null,
-    changed           timestamp(6)          not null,
-    is_deleted        boolean default false not null
+    created timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null,
+    is_deleted boolean default false not null
     );
 
 alter table analytics
@@ -85,15 +128,32 @@ create index l_product_analytics_product_id_index
 
 create table if not exists stock_status
 (
-    id                 bigint                not null
-    constraint stock_status_pk
-    primary key,
-    ordered_quantity bigint,
-    available_quantity bigint not null,
-    reserved_quantity bigint,
+    id
+    bigint
+    not
+    null
+    constraint
+    stock_status_pk
+    primary
+    key,
+    ordered_quantity
+    bigint,
+    available_quantity
+    bigint
+    not
+    null,
+    reserved_quantity
+    bigint,
 
-    created            timestamp(6)          not null,
-    changed            timestamp(6)          not null
+    created
+    timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null
     );
 
 alter table stock_status
@@ -111,17 +171,33 @@ create index stock_status_reserved_quantity_index
 
 create table if not exists receipt_order
 (
-    id             bigserial
-    constraint receipt_order_pk
-    primary key,
-    order_number   bigint                not null,
-    income_data    timestamp(6)                  not null,
+    id
+    bigserial
+    constraint
+    receipt_order_pk
+    primary
+    key,
+    order_number
+    bigint
+    not
+    null,
+    income_data
+    timestamp
+(
+    6
+) not null,
     receipt_status boolean default false not null,
     quantity bigint not null,
     stock_id bigint not null,
-    created        timestamp(6)          not null,
-    changed        timestamp(6)          not null,
-    is_deleted     boolean default false not null
+    created timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null,
+    is_deleted boolean default false not null
     );
 
 alter table receipt_order
@@ -150,13 +226,29 @@ create index receipt_order_receipt_status_index
 
 create table if not exists storage_address
 (
-    id                bigserial
-    constraint storage_address_pk
-    primary key,
-    storage_cell_type varchar               not null,
-    cell_address      varchar(100)                not null,
-    created           timestamp(6)          not null,
-    changed           timestamp(6)          not null
+    id
+    bigserial
+    constraint
+    storage_address_pk
+    primary
+    key,
+    storage_cell_type
+    varchar
+    not
+    null,
+    cell_address
+    varchar
+(
+    100
+) not null,
+    created timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null
 
     );
 
@@ -175,17 +267,34 @@ create index storage_address_storage_cell_type_index
 
 create table if not exists l_inventory_addresses
 (
-    id         bigserial
-        constraint l_inventory_addresses_pk
-            primary key,
-    stock_id   bigint not null
-        constraint l_inventory_addresses_stock_status_id_fk
-            references stock_status
-            on update cascade,
-    address_id bigint not null
-        constraint l_inventory_addresses_storage_address_id_fk
-            references storage_address
-            on update cascade
+    id
+    bigserial
+    constraint
+    l_inventory_addresses_pk
+    primary
+    key,
+    stock_id
+    bigint
+    not
+    null
+    constraint
+    l_inventory_addresses_stock_status_id_fk
+    references
+    stock_status
+    on
+    update
+    cascade,
+    address_id
+    bigint
+    not
+    null
+    constraint
+    l_inventory_addresses_storage_address_id_fk
+    references
+    storage_address
+    on
+    update
+    cascade
 );
 
 create index inventory_addresses_address_id_index
@@ -201,17 +310,33 @@ create unique index l_inventory_addresses_id_uindex
 
 create table if not exists shipment
 (
-    id              bigserial
-    constraint shipment_pk
-    primary key,
-    shipment_number bigint                not null,
-    shipping_date   timestamp(6)                  not null,
+    id
+    bigserial
+    constraint
+    shipment_pk
+    primary
+    key,
+    shipment_number
+    bigint
+    not
+    null,
+    shipping_date
+    timestamp
+(
+    6
+) not null,
     stock_id bigint not null,
     shipment_status boolean default false not null,
-    quantity        bigint                not null,
-    created         timestamp(6)          not null,
-    changed         timestamp(6)          not null,
-    is_deleted      boolean default false not null
+    quantity bigint not null,
+    created timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null,
+    is_deleted boolean default false not null
     );
 
 alter table shipment
@@ -239,19 +364,44 @@ create index shipment_shipping_date_index
 
 create table if not exists l_products_incoming
 (
-    id         bigserial
-        constraint l_products_incoming_pk
-            primary key,
-    product_id bigint       not null
-        constraint l_products_incoming_product_id_fk
-            references product
-            on update cascade on delete cascade,
-    receipt_id bigint       not null
-        constraint l_products_incoming_receipt_order_id_fk
-            references receipt_order,
-    created    timestamp(6) not null,
-    changed    timestamp(6) not null
-);
+    id
+    bigserial
+    constraint
+    l_products_incoming_pk
+    primary
+    key,
+    product_id
+    bigint
+    not
+    null
+    constraint
+    l_products_incoming_product_id_fk
+    references
+    product
+    on
+    update
+    cascade
+    on
+    delete
+    cascade,
+    receipt_id
+    bigint
+    not
+    null
+    constraint
+    l_products_incoming_receipt_order_id_fk
+    references
+    receipt_order,
+    created
+    timestamp
+(
+    6
+) not null,
+    changed timestamp
+(
+    6
+) not null
+    );
 
 create unique index l_products_incoming_id_uindex
     on l_products_incoming (id);

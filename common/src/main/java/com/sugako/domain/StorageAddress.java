@@ -1,9 +1,8 @@
 package com.sugako.domain;
 
 
-;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,20 +34,25 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Cacheable("storage_address")
 @EqualsAndHashCode(exclude = {"stock"})
 @ToString(exclude = {"stock"})
-@Table(name = "receipt_order")
-public class ReceiptOrder {
+@Table(name = "storage_address")
+public class StorageAddress {
 
     @Id
     @GeneratedValue(generator = "item_id_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "receipt_number")
+    @Column(name = "cell_address")
     @NotNull
-    @Size(min = 3, max = 100)
-    private String receiptNumber;
+    @Size(min = 3, max = 20)
+    private String cellAddress;
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<StockStatus> stock = Collections.emptySet();
 
     @Column
     @JsonIgnore
@@ -63,11 +68,6 @@ public class ReceiptOrder {
     @JsonIgnore
     @NotNull
     private Boolean isDeleted;
-
-
-    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private Set<StockStatus> stock = Collections.emptySet();
 
 
 }
