@@ -2,11 +2,17 @@ package com.sugako.controller;
 
 
 import com.sugako.domain.Shipment;
+import com.sugako.domain.StockStatus;
 import com.sugako.exception.IllegalRequestException;
 import com.sugako.repository.ShipmentRepository;
 import com.sugako.requests.ShipmentCreateRequest;
 import com.sugako.requests.ShipmentUpdateRequest;
 import com.sugako.service.ShipmentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +40,18 @@ public class ShipmentRestController {
 
     private final ShipmentRepository shipmentRepository;
 
+    @Operation(
+            summary = "Adding new shipment",
+            description = "Adding stock to a shipping order. Added amount is reserved stock status",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "CREATED",
+                            description = "Stock added successfully",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    )
+            }
+    )
     @PostMapping
     public ResponseEntity<Shipment> createShipment(@Valid @RequestBody ShipmentCreateRequest shipmentCreateRequest,
                                                    BindingResult bindingResult) {
@@ -45,6 +63,18 @@ public class ShipmentRestController {
         return new ResponseEntity<>(shipment, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Update shipment",
+            description = "Change in existing shipment",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "OK",
+                            description = "Changes were successful",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    )
+            }
+    )
     @PutMapping()
     public ResponseEntity<Shipment> updateShipment(@Valid @RequestBody ShipmentUpdateRequest shipmentUpdateRequest,
                                                    BindingResult bindingResult) {
@@ -56,20 +86,55 @@ public class ShipmentRestController {
         return new ResponseEntity<>(shipment, HttpStatus.OK);
     }
 
-
+    @Operation(
+            summary = "Search all shipments",
+            description = "Find all shipments without limits",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "OK",
+                            description = "Successfully loaded shipments",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    )
+            }
+    )
     @GetMapping
     public ResponseEntity<List<Shipment>> getAllShipments() {
         List<Shipment> shipments = shipmentRepository.findAll();
         return new ResponseEntity<>(shipments, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/picking/{quantity}/address/{address}")
-    public ResponseEntity<Shipment> picking(@PathVariable("id") Long id,
-                                            @PathVariable("quantity") Long quantity,
-                                            @PathVariable("address") Long address) {
+    @Operation(
+            summary = "Stock assembly",
+            description = "Stock assembly, with address and quantity confirmation",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "OK",
+                            description = "Successfully loaded shipment",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    )
+            }
+    )
+    @PutMapping("/{id}/pick/q={quantity}/a={address}")
+    public ResponseEntity<Shipment> picking(@PathVariable("id") @Parameter(description = "shipment id number") Long id,
+                                            @PathVariable("quantity") @Parameter(description = "quantity") Long quantity,
+                                            @PathVariable("address") @Parameter(description = "address id number") Long address) {
         return new ResponseEntity<>(shipmentService.picking(id, address, quantity), HttpStatus.OK);
     }
 
+    @Operation(
+            summary = "Search by id number",
+            description = "Search for a specific shipment",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "OK",
+                            description = "Successfully loaded shipment",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    ),
+            }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<Shipment> getShipmentById(@PathVariable("id") Long id) {
 
@@ -79,6 +144,18 @@ public class ShipmentRestController {
                 new EntityNotFoundException("Shipment with id " + id + " not found"));
     }
 
+    @Operation(
+            summary = "Soft delete",
+            description = "Deactivates the selected shipment",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "OK",
+                            description = "Shipment successfully deactivated",
+                            content = @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = StockStatus.class))
+                    )
+            }
+    )
     @PutMapping("/deactivate/{id}")
     public ResponseEntity<String> deactivate(@PathVariable("id") Long id) {
 

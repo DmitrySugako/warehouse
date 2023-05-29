@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
+        <module name="Warehouse" />
         <module name="api" />
       </profile>
     </annotationProcessing>
@@ -16,7 +17,6 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api" options="-parameters" />
       <module name="common" options="-parameters" />
-      <module name="warehouse" options="-parameters" />
     </option>
   </component>
 </project>

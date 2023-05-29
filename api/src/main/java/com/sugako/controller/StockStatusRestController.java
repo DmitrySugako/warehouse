@@ -8,6 +8,7 @@ import com.sugako.requests.StockCreateRequest;
 import com.sugako.requests.StockUpdateRequest;
 import com.sugako.service.StockStatusService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -110,9 +111,7 @@ public class StockStatusRestController {
                             description = "Successfully loaded stock",
                             content = @Content(mediaType = "application/json", schema =
                             @Schema(implementation = StockStatus.class))
-                    ), @ApiResponse(
-                    responseCode = "NOT_FOUND", description = "Stock not found"
-            )
+                    ),
             }
     )
     @GetMapping("/{id}")
@@ -125,7 +124,7 @@ public class StockStatusRestController {
     }
 
     @Operation(
-            summary = "Putting stock into warehouse",
+            summary = "Acceptance stock into warehouse",
             description = "The approval, by means of ID confirmation of supply," +
                     " its quantity and selection of the cell address storage",
             responses = {
@@ -137,10 +136,10 @@ public class StockStatusRestController {
                     )
             }
     )
-    @PutMapping("/{id}/acceptance/{quantity}/address/{address}")
-    public ResponseEntity<StockStatus> itemAcceptance(@PathVariable("id") Long id,
-                                                      @PathVariable("quantity") Long quantity,
-                                                      @PathVariable("address") Long address) {
+    @PutMapping("/{id}/accept/q={quantity}/a={address}")
+    public ResponseEntity<StockStatus> itemAcceptance(@PathVariable("id") @Parameter(description = "stock id number") Long id,
+                                                      @PathVariable("quantity") @Parameter(description = "quantity") Long quantity,
+                                                      @PathVariable("address") @Parameter(description = "address id number") Long address) {
 
         return new ResponseEntity<>(stockStatusService.acceptance(id, address, quantity), HttpStatus.OK);
     }
