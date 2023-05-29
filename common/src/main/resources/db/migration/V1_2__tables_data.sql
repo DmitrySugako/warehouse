@@ -1,27 +1,48 @@
-INSERT INTO public.product (id, sku, description, created, changed, is_deleted, srp1, srp2, srp3, barcode)
-VALUES (1, 'SK2020', 'Notebook', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', false, 'MobileDevices',
-        'Notebooks', 'HP', 32323222);
-INSERT INTO public.product (id, sku, description, created, changed, is_deleted, srp1, srp2, srp3, barcode)
-VALUES (2, 'SK2021', 'Notebook', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', false, 'MobileDevices',
-        'Notebooks', 'HP', 3434343);
-INSERT INTO public.product (id, sku, description, created, changed, is_deleted, srp1, srp2, srp3, barcode)
-VALUES (3, 'NB303030', 'Smartphone', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', false,
-        'MobileDevices', 'Smartphones', 'SAM', 43434);
+insert into public.item (id, sku_code, description, category, created, changed, is_deleted)
+values (10, 'PHL3030', 'Monitor Phillips', 'MON', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (11, 'PHL3031', 'Monitor Phillips', 'MON', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (12, 'PHL3032', 'Monitor Phillips', 'MON', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (13, 'PHL3033', 'Monitor Phillips', 'MON', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (14, 'PHL3034', 'Monitor Phillips', 'MON', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (15, 'SAM4423', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (16, 'SAM5454', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (17, 'SAM3331', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (18, 'SAM1000', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (19, 'SAM3400', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (20, 'SAM5678', 'Monitor Samsung', 'SAM', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (21, 'HQ340', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (22, 'HQ344', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (23, 'HQ345', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (24, 'HQ346', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (25, 'HQ348', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (26, 'HQ400', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (27, 'HQ555', 'Notebook HP', 'HPE', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (28, 'I8081', 'Notebook Lenovo', 'LEN', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (29, 'I8085', 'Notebook Lenovo', 'LEN', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (30, 'I8088', 'Notebook Lenovo', 'LEN', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false);
 
-INSERT INTO public.analytics (id, batch_number, country_of_import, created, changed, is_deleted)
-VALUES (1, '080523', 'CHN', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', 'false');
+insert into public.storage_address(id, cell_address, created, changed, is_deleted)
+values (10, '010101', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (11, '010201', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (12, '010301', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (13, '010401', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (14, '010202', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (15, '010203', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (16, '010204', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (17, '010302', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (18, '010303', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (19, '010304', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (20, '010401', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (21, '010102', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false);
 
-INSERT INTO public.analytics (id, batch_number, country_of_import, created, changed, is_deleted)
-VALUES (2, '080223', 'POL', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', 'false');
+insert into public.receipt_order (id, receipt_number, created, changed, is_deleted)
+values (10, 'R230507', '2023-05-07 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (11, 'R230508', '2023-05-08 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (12, 'R230509', '2023-05-09 13:49:11.000000', '2023-05-07 13:49:11.000000', false);
 
-INSERT INTO public.analytics (id, batch_number, country_of_import, created, changed, is_deleted)
-VALUES (3, '080123', 'CHN', '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000', 'false');
-
-INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, changed)
-VALUES (1, 1, 2, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
-
-INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, changed)
-VALUES (2, 2, 1, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
-
-INSERT INTO public.l_product_analytics (id, product_id, analytics_id, created, changed)
-VALUES (3, 1, 2, '2023-05-07 13:49:10.000000', '2023-05-07 13:49:11.000000');
+insert into public.stock_status (id, receipt_id, item_id, address_id, ordered_quantity, available_quantity,
+                                 reserved_quantity, created, changed, is_deleted)
+values (10, 10, 13, 11, 0, 300, 0, '2023-05-09 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (11, 10, 14, 12, 0, 400, 0, '2023-05-09 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (12, 11, 15, 13, 0, 350, 0, '2023-05-09 13:49:11.000000', '2023-05-07 13:49:11.000000', false),
+       (13, 11, 16, 14, 0, 960, 0, '2023-05-09 13:49:11.000000', '2023-05-07 13:49:11.000000', false);
